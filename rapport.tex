@@ -53,6 +53,9 @@ specificity.
   second.
 \item The output stream rate must not drift more than half a frame (at most 8ms)
   in a runtime of 24 hours
+\item The delay between startup of console and first output frame must be
+  shorter than 0.5s and must not vary more than a quarter of a frame (at most
+  4ms) between runs
 \item The latency between input and output during passthrough must be less than
   1 ms
 \end{itemize}
