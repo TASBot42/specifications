@@ -10,9 +10,27 @@
 \begin{document}
 \maketitle
 
-\section{Functional purposes}
-\subsection{Overview}
-Lancer des TAS sur la N64 (explication de ce qu'est un TAS)
+\section{Functional purpose}
+The TASBot64 is a device that plugs in a Nintendo 64 to play a pre-recorded Tool
+Assisted Speedrun (TAS) input file, faking a gamepad.
+
+A TAS is a speedrun (the completion of a video game in the shortest time
+possible) whose inputs, that is to say the sequence of buttons pressing and
+movements on the gamepad, are given frame-by-frame on an emulator.
+
+Emulators enable techniques such as frame-by-frame operation, precise digital
+and analog inputs, re-recording (saving and reloading the entire state of the
+game at any moment) or even memory watching and disassembly.
+
+Thanks to this, TASs showcase feats unattainable to the human player and often
+feature blatant abuse of the game mechanisms, exploiting bugs in the games that
+was not intended to receive such fast and improbable input.
+
+If the emulator is needed to craft the input file, the sequence of inputs itself
+however is perfectly valid and theorically could come from a real gamepad. Hence
+the goal of the TASBot64, that is to perform a TAS on a real Nintendo 64 instead
+of an emulator, thus validating that the TAS does not depend on any emulator
+specificity.
 
 \subsection{Features}
 \begin{itemize}
