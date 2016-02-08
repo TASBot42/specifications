@@ -61,24 +61,71 @@ specificity.
 \end{itemize}
 
 \section{User manual}
-\subsection{Error}
-\subsubsection{TAS mode}
+\subsection{Foreword}
+
+\subsection{Package content}
+
+\subsection{Installation}
+
+\subsection{Reading a TAS}
+\subsubsection{Getting files (Mupen64 movies)}
+First of all, you have to download at least one and up to four files to be read 
+by your TASBot64 from the Internet to your SD card (not included). Such files 
+can be found on specialized websites such as tasvideos.org
+Once the files are loaded, insert your SD card into the adapted slot of the 
+TASBot64.
+
+Our tip: you may want to visit http://tasvideos.org/Movies-N64-Stars-Moons.html
+
+Important: please notice that you must own the cartridge of the game you want 
+to run the TAS.
+
+Important: please notice that only .m64 files (Mupen64 movies) can be read by 
+your TASBot64 so make sure to get these.
+
+\subsubsection{Preparing the ground}
+Every TAS has been created to run from a certain state of the game. You have to 
+put your game cartridge in this specific state in order to run the TAS you've 
+chosen. Generally this means deleting all data from the first file of the game 
+cartridge but THIS MAY VARY FOR SOME OF THEM. In any case, we recommend to 
+double check the TAS video (you will find links to these under the .m64 files 
+on tasvideos.org) before starting a run.
+
+\subsubsection{Running the TAS}
 \begin{itemize}
-\item TAS doesn't start, no input play : Check if the switch is on TAS mode
-\item TAS don't work, desync : Check if the right game is selected, restart the game
-\item TAS didn't finish the game : Check if the games is in right initial state at the launch
+\item Put the appropriate game cartridge into your Nintendo 64 system
+\item Connect your TASBot64 to the first controller port of your Nintendo 64 
+system
+\item Switch the mode switch to TAS position
+\item Switch the game selector switch to the appropriate position, regarding to 
+the partition in which you uploaded the .m64 file to. The name of the selected 
+game will briefly appear on the LCD screen
+\item Turn your Nintendo 64 system on and enjoy the watch
 \end{itemize}
 
-\subsubsection{Passthrougt mode}
+\subsection{Passthrough mode}
+
+\subsection{Errors and how to fix them}
+\subsubsection{TAS mode}
 \begin{itemize}
-\item The character moves itself : Check if the switch is on Passthrought
+\item TAS doesn't start, no input play: check if the switch is on TAS mode
+\item TAS seems desynchronized: check if the right game is selected, restart 
+the game
+\item TAS didn't finish the game : Check if the games is in right initial state 
+at the launch
+\end{itemize}
+
+\subsubsection{Passthrough mode}
+\begin{itemize}
+\item The character moves itself : Check if the switch is on Passthrough
 \item I can't move : Check if controller is connected.
 \end{itemize}
 
 \subsubsection{Error Code}
 \begin{itemize}
 \item Error 000 : insert SDCARD in the slot
-\item Error 001 : Error while parsing TAS file, make sure the SDCARD is format in fat32 and the input file is .m64
+\item Error 001 : Error while parsing TAS file, make sure the SDCARD is format 
+in fat32 and the input file is .m64
 \item Error 002 : SD card is empty, put a file in the SD card
 \end{itemize}
 
