@@ -61,16 +61,24 @@ specificity.
 \end{itemize}
 
 \section{User manual}
+\subsection{Error}
+\subsubsection{TAS mode}
 \begin{itemize}
-\item achette un ordi
-\item Mettre un fichier sur la carte SD formatee en fat32, fichier .m64
-\item Etre sur de l'etat du jeux ( no save pour la majorite des TAS )
-\item Verifier que le switch est bien sur lecture du fichier avant de lancer la console.
-\item Connection PCB a la console via le port manette.
+\item TAS doesn't start, no input play : Check if the switch is on TAS mode
+\item TAS don't work, desync : Check if the right game is selected, restart the game
+\end{itemize}
 
-\item comment que ca marche
-\subsection
+\subsubsection{Passthrougt mode}
+\begin{itemize}
+\item I can't play : Check if the switch is on Passthrought
+\item I can't move : Check if controller is connected.
+\end{itemize}
 
+\subsection{Error Code}
+\begin{itemize}
+\item Error #000 : insert SDCARD in the slot
+\item Error #001 : Error while parsing TAS file, make sure the SDCARD is format in fat32 and the input file is .m64
+\item Error #002 : SD card is empty, put a file in the SD card
 \end{itemize}
 
 \section{Protocols}
