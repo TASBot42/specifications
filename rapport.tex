@@ -3,6 +3,7 @@
 \usepackage[utf8x]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{eurosym}
+\usepackage{graphicx}
 
 \title{TASBot64\\Specifications}
 \author{rcavadas, abureau,\\cmutti, lgillot-}
@@ -168,7 +169,63 @@ system of your SDCARD is fat32 and check your TAS file type (it must be .m64)
 \end{itemize}
 
 \section{Protocols}
-Faut qu'on reverse viteuf là
+\subsection{Initial state}
+When the Nintendo 64 system is on and the game is not launched yet, The initial
+state is a continuous 3.3 V signal going through the paddle.
+
+\subsection{Reading the signal states}
+Once the game is launched, the signal amplitude is situated between 0.655 V
+and 3.300 V. The following images represent the way the game console
+understands the 0 and 1 states of a single bit. A bit is read on a period of
+4 \( \mu \)s.
+
+0 state: the voltage value of the signal is lowered to 0.655 V for 3 \( \mu \)s and
+then released to its initial state.
+\\\includegraphics[width=\textwidth]{0bit.png}
+\\1 state: the voltage value of the signal is lowered to 0.655 V for 1 \( \mu \)s and
+then released to its initial state.
+\\\includegraphics[width=\textwidth]{1bit.png}
+
+Request signal:
+The game console requests the inputs from the paddle, which puts the signal in a
+certain sequence of 0 and 1 states depending on which buttons are simultaneously
+pressed. This request consists of 1 Byte read as follow: 00000001 or 0x01.
+N.B. The voltage is lowered to 0 V during the request sequence, not 0.655 V as
+for the inputs signal.
+
+\subsection{Inputs signal}
+It consists of a 4 Bytes sequence representing the simultaneous inputs of the
+paddle buttons and joystick, read as follow:
+\begin{itemize}
+    \item Byte 0:
+    \begin{itemize}
+        \item bit 0: A button
+	    \item bit 1: B button
+	    \item bit 2: Z button
+	    \item bit 3: Start button
+	    \item bit 4: D pad up button
+    	\item bit 5: D pad down buton
+    	\item bit 6: D pad left button
+    	\item bit 7: D pad right button
+    \end{itemize}
+    \item Byte 1:
+    \begin{itemize}
+        \item bit 0: Nothing
+	    \item bit 1: Nothing
+	    \item bit 2: L button
+	    \item bit 3: R button
+	    \item bit 4: C up button
+    	\item bit 5: C down buton
+    	\item bit 6: C left button
+    	\item bit 7: C right button
+    \end{itemize}
+    \item Byte 2: Joystick X axis range from -128 (left position) to 127 (right
+position)
+    \item Byte 3: Joystick Y axis range from -128 (down position) to 127 (up position)
+\end{itemize}
+\includegraphics[width=\textwidth]{input_legend.png}
+\\\includegraphics[width=\textwidth]{noinput.png}
+\\\includegraphics[width=\textwidth]{some_input.png}
 
 \section{Block diagram}
 
