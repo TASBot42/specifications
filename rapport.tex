@@ -4,6 +4,8 @@
 \usepackage[T1]{fontenc}
 \usepackage{eurosym}
 \usepackage{graphicx}
+\usepackage{array}
+\newcolumntype{C}{>{\centering\arraybackslash}p{8ex}}
 
 \title{TASBot64\\Specifications}
 \author{rcavadas, abureau,\\cmutti, lgillot-}
@@ -197,32 +199,29 @@ for the inputs signal.
 \subsubsection{Inputs signal}
 It consists of a 4 Bytes sequence representing the simultaneous inputs of the
 paddle buttons and joystick, read as follow:
+
 \begin{itemize}
-    \item Byte 0:
-    \begin{itemize}
-        \item bit 0: A button
-	    \item bit 1: B button
-	    \item bit 2: Z button
-	    \item bit 3: Start button
-	    \item bit 4: D pad up button
-    	\item bit 5: D pad down buton
-    	\item bit 6: D pad left button
-    	\item bit 7: D pad right button
-    \end{itemize}
-    \item Byte 1:
-    \begin{itemize}
-        \item bit 0: Nothing
-	    \item bit 1: Nothing
-	    \item bit 2: L button
-	    \item bit 3: R button
-	    \item bit 4: C up button
-    	\item bit 5: C down buton
-    	\item bit 6: C left button
-    	\item bit 7: C right button
-    \end{itemize}
-    \item Byte 2: Joystick X axis range from -128 (left position) to 127 (right
-position)
-    \item Byte 3: Joystick Y axis range from -128 (down position) to 127 (up position)
+\item Byte 0:
+
+  \begin{tabular}{|*{8}{C|}}
+    \hline
+    \multicolumn{1}{|l}{7}&\multicolumn{6}{c}{}&\multicolumn{1}{r|}{0}\\
+    \hline
+    A&B&Z&Start&DPad up&DPad down&DPad left&DPad right\\
+    \hline
+  \end{tabular}
+\item Byte 1:
+
+  \begin{tabular}{|*{8}{C|}}
+    \hline
+    \multicolumn{1}{|l}{7}&\multicolumn{6}{c}{}&\multicolumn{1}{r|}{0}\\
+    \hline
+    Reserved&Reserved&L&R&C up&C down &C left&C right\\
+    \hline
+  \end{tabular}
+\item Byte 2: Joystick X axis range from -128 (left position) to 127 (right
+  position)
+\item Byte 3: Joystick Y axis range from -128 (down position) to 127 (up position)
 \end{itemize}
 \includegraphics[width=\textwidth]{input_legend.png}
 \\\includegraphics[width=\textwidth]{noinput.png}
