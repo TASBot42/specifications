@@ -6,6 +6,7 @@
 \usepackage{graphicx}
 \usepackage{array}
 \newcolumntype{C}{>{\centering\arraybackslash}p{8ex}}
+\usepackage[binary-units = true]{siunitx}
 
 \title{TASBot64\\Specifications}
 \author{rcavadas, abureau,\\cmutti, lgillot-}
@@ -174,18 +175,18 @@ system of your SDCARD is fat32 and check your TAS file type (it must be .m64)
 \subsection{N64 to Gamepad}
 \subsubsection{Initial state}
 When the Nintendo 64 system is on and the game is not launched yet, The initial
-state is a continuous 3.3 V signal going through the paddle.
+state is a continuous \SI{3.3}{\V} signal going through the paddle.
 
 \subsubsection{Reading the signal states}
-Once the game is launched, the signal amplitude is situated between 0.655 V
-and 3.300 V. The following images represent the way the game console
+Once the game is launched, the signal amplitude is situated between \SI{0.655}{\V}
+and \SI{3.300}{\V}. The following images represent the way the game console
 understands the 0 and 1 states of a single bit. A bit is read on a period of
-4 \( \mu \)s.
+\SI4{\us}.
 
-0 state: the voltage value of the signal is lowered to 0.655 V for 3 \( \mu \)s and
+0 state: the voltage value of the signal is lowered to \SI{0.655}{\V} for \SI3{\us} and
 then released to its initial state.
 \\\includegraphics[width=\textwidth]{0bit.png}
-\\1 state: the voltage value of the signal is lowered to 0.655 V for 1 \( \mu \)s and
+\\1 state: the voltage value of the signal is lowered to \SI{0.655}{\V} for \SI1{\us} and
 then released to its initial state.
 \\\includegraphics[width=\textwidth]{1bit.png}
 
@@ -193,7 +194,7 @@ Request signal:
 The game console requests the inputs from the paddle, which puts the signal in a
 certain sequence of 0 and 1 states depending on which buttons are simultaneously
 pressed. This request consists of 1 Byte read as follow: 00000001 or 0x01.
-N.B. The voltage is lowered to 0 V during the request sequence, not 0.655 V as
+N.B. The voltage is lowered to \SI0{\V} during the request sequence, not \SI{0.655}{\V} as
 for the inputs signal.
 
 \subsubsection{Inputs signal}
