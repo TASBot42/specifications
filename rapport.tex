@@ -266,6 +266,24 @@ paddle buttons and joystick, read as follow:
 \end{figure}
 
 \subsection{Mupen64 movie files}
+The file format read by the TASBot64 is that of Mupen64-rr, the version of the
+Mupen64 emulator modified for the TAS purpose. The files usually take the .m64
+extension.
+
+At the beginning of the file is a simple fixed size header containing a magic
+number to verify that the file is indeed of the right format, the format
+version, whether the TAS was meant to be run with a game save or a snapshot, the
+number of gamepads connected and the number of input frames (all numbers are
+little endian). It also contains various metadata such as the name of the game
+for which the TAS is made, the author of the TAS or a short description.
+
+The input stream starts after the header, at address 0x400 in the file. It is a
+serie of 4 bytes input frames, with the same bits layout as in the gamepad
+protocol.
+
+Since it is the console that chooses when it needs input, the input frames are
+not tagged with any port number or timestamp : they are simply served, in order,
+to any port that requests one.
 
 \subsection{SD card}
 
