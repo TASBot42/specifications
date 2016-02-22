@@ -211,7 +211,7 @@ falling edge and then the line is released.
 The inputs are always transmitted on console demand: the gamepad never
 spontaneously emit input information. When the console sends a request frame,
 the gamepad sends back a frame containing the full state of the gamepad at the
-moment.
+moment. The total communication does not take longer than \SI{200}{\us}.
 
 The console does not necessarily asks for input on a regular basis: a long time
 could go between requests, for example if the game currently does not take
