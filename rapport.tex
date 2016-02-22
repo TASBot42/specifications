@@ -173,18 +173,22 @@ system of your SDCARD is fat32 and check your TAS file type (it must be .m64)
 
 \section{Protocols}
 \subsection{N64 to Gamepad}
-\subsubsection{Initial state}
-When the Nintendo 64 system is on and the game is not launched yet, The initial
-state is a continuous \SI{3.3}{\V} signal going through the paddle.
+\subsubsection{Electrical levels}
+The gamepad is connected to the Nintendo 64 by a cable made of a \SI{3.3}{\V}
+alim wire, a ground wire and a data wire.
 
-\subsubsection{Reading the signal states}
-Once the game is launched, the signal amplitude is situated between \SI{0.655}{\V}
-and \SI{3.300}{\V}. The following images represent the way the game console
-understands the 0 and 1 states of a single bit. A bit is read on a period of
-\SI4{\us}.
+This data wire is a bidirectionnal serial bus. It is operated in an open
+collector way, pulled up to \SI{3.3}{\V}. Hence, both the console and the
+gamepad can talk half-duplex on it by pulling down the line in a wire-AND
+scheme.
 
-0 state: the voltage value of the signal is lowered to \SI{0.655}{\V} for \SI3{\us} and
-then released to its initial state, as pictured in figure \ref{0bit}.
+As measured, the console pulls down the line to \SI0{\V}, while our gamepad
+pulls it only down to \SI{655}{\mV}, probably due to a diode on the path.
+
+\subsubsection{Bit signaling and framing}
+Each bit of data on the wire is made of a falling edge followed by a rising
+edge. What distinguish a 0 bit from a 1 bit is the duration of the low state, as
+pictured in figures \ref{0bit} and \ref{1bit}.
 
 \begin{figure}
   \includegraphics[width=\textwidth]{0bit.png}
@@ -192,24 +196,31 @@ then released to its initial state, as pictured in figure \ref{0bit}.
   \label{0bit}
 \end{figure}
 
-1 state: the voltage value of the signal is lowered to \SI{0.655}{\V} for
-\SI1{\us} and then released to its initial state, as in figure \ref{1bit}.
-
 \begin{figure}
   \includegraphics[width=\textwidth]{1bit.png}
   \caption{1 bit}
   \label{1bit}
 \end{figure}
 
-Request signal:
-The game console requests the inputs from the paddle, which puts the signal in a
-certain sequence of 0 and 1 states depending on which buttons are simultaneously
-pressed. This request consists of 1 Byte read as follow: 00000001 or 0x01.
-N.B. The voltage is lowered to \SI0{\V} during the request sequence, not \SI{0.655}{\V} as
-for the inputs signal.
+Communication is done in frames of 1 to 4 bytes. A frame starts directly with a
+data bit. Each bit is separated of the next by a high state of at least
+\SI{0.5}{\us}. After all bytes are transmitted, the frame ends with a last
+falling edge and then the line is released.
 
-\subsubsection{Inputs signal}
-It consists of a 4 Bytes sequence representing the simultaneous inputs of the
+\subsubsection{Input protocol}
+The inputs are always transmitted on console demand: the gamepad never
+spontaneously emit input information. When the console sends a request frame,
+the gamepad sends back a frame containing the full state of the gamepad at the
+moment.
+
+The console does not necessarily asks for input on a regular basis: a long time
+could go between requests, for example if the game currently does not take
+inputs at the moment or if it taking inputs from another gamepad. However the
+console will not ask the same gamepad more than once in a frame time (at least
+\SI{16}{\ms}).
+
+The request frame is one 0b00000001 byte.
+The response is a 4 byte frame representing the simultaneous inputs of the
 paddle buttons and joystick, read as follow:
 
 \begin{itemize}
