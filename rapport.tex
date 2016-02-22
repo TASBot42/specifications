@@ -184,11 +184,22 @@ understands the 0 and 1 states of a single bit. A bit is read on a period of
 \SI4{\us}.
 
 0 state: the voltage value of the signal is lowered to \SI{0.655}{\V} for \SI3{\us} and
-then released to its initial state.
-\\\includegraphics[width=\textwidth]{0bit.png}
-\\1 state: the voltage value of the signal is lowered to \SI{0.655}{\V} for \SI1{\us} and
-then released to its initial state.
-\\\includegraphics[width=\textwidth]{1bit.png}
+then released to its initial state, as pictured in figure \ref{0bit}.
+
+\begin{figure}
+  \includegraphics[width=\textwidth]{0bit.png}
+  \caption{0 bit}
+  \label{0bit}
+\end{figure}
+
+1 state: the voltage value of the signal is lowered to \SI{0.655}{\V} for
+\SI1{\us} and then released to its initial state, as in figure \ref{1bit}.
+
+\begin{figure}
+  \includegraphics[width=\textwidth]{1bit.png}
+  \caption{1 bit}
+  \label{1bit}
+\end{figure}
 
 Request signal:
 The game console requests the inputs from the paddle, which puts the signal in a
@@ -202,31 +213,46 @@ It consists of a 4 Bytes sequence representing the simultaneous inputs of the
 paddle buttons and joystick, read as follow:
 
 \begin{itemize}
-\item Byte 0:
-
-  \begin{tabular}{|*{8}{C|}}
-    \hline
-    \multicolumn{1}{|l}{7}&\multicolumn{6}{c}{}&\multicolumn{1}{r|}{0}\\
-    \hline
-    A&B&Z&Start&DPad up&DPad down&DPad left&DPad right\\
-    \hline
-  \end{tabular}
-\item Byte 1:
-
-  \begin{tabular}{|*{8}{C|}}
-    \hline
-    \multicolumn{1}{|l}{7}&\multicolumn{6}{c}{}&\multicolumn{1}{r|}{0}\\
-    \hline
-    Reserved&Reserved&L&R&C up&C down &C left&C right\\
-    \hline
-  \end{tabular}
+\item Byte 0: see table \ref{byte0}
+  \begin{table}
+    \begin{tabular}{|*{8}{C|}}
+      \hline
+      \multicolumn{1}{|l}{7}&\multicolumn{6}{c}{}&\multicolumn{1}{r|}{0}\\
+      \hline
+      A&B&Z&Start&DPad up&DPad down&DPad left&DPad right\\
+      \hline
+    \end{tabular}
+    \caption{Input byte 0}
+    \label{byte0}
+  \end{table}
+\item Byte 1: see table \ref{byte1}
+  \begin{table}
+    \begin{tabular}{|*{8}{C|}}
+      \hline
+      \multicolumn{1}{|l}{7}&\multicolumn{6}{c}{}&\multicolumn{1}{r|}{0}\\
+      \hline
+      Reserved&Reserved&L&R&C up&C down &C left&C right\\
+      \hline
+    \end{tabular}
+    \caption{Input byte 1}
+    \label{byte1}
+  \end{table}
 \item Byte 2: Joystick X axis range from -128 (left position) to 127 (right
   position)
 \item Byte 3: Joystick Y axis range from -128 (down position) to 127 (up position)
 \end{itemize}
-\includegraphics[width=\textwidth]{input_legend.png}
-\\\includegraphics[width=\textwidth]{noinput.png}
-\\\includegraphics[width=\textwidth]{some_input.png}
+
+\begin{figure}
+  \includegraphics[width=\textwidth]{input_legend.png}
+  \caption{Input bits meaning}
+  \label{input_legend}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=\textwidth]{some_input.png}
+  \caption{Input bits with some buttons pressed and stick tilted}
+  \label{some_input}
+\end{figure}
 
 \subsection{Mupen64 movie files}
 
