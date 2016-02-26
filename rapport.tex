@@ -289,6 +289,32 @@ to any port that requests one.
 \subsection{SD card}
 
 \subsection{LCD display}
+The display we will use, as the majority of LCD character mode displays, include
+a Hitachi HD44780 compatible driver chip. This chip is talked to over a
+Read/Write (R/W) pin, a Register Select (RS) pin, an 8 pin bus (DB[7..0]) and a
+clock pin (E). Inside the chip are some configuration register and memory,
+including an Address Counter (AC), a Display Data RAM (DDRAM) and a Character
+Generator RAM (CGRAM).
+
+In our case the R/W pin will stay low as we won't need to read back from the
+chip. The CGRAM, whose purpose is to store custom characters, won't be used as
+well. The chip also features a 4 bits mode, where DB[7..4] is used on two clock
+fronts to provide one byte, which won't be used as well.
+
+When RS is high, each falling edge on E write the byte given on DB[7..0] to
+DDRAM, at the address stored in the internal register AC, that represents the
+cursor position. AC is then incremented (or decremented, according to
+configuration), so that the next character is written to the next posision on
+the screen.
+
+When RS is low, instead of character data, the byte on DB[7..0] is interpreted
+as a command. These commands allow one to set the configuration, clear the
+screen or set AC, among others. The variable length high part of the byte
+specifies the command, while the low part is the argument.
+
+Each command or memory write takes a defined time to process before another
+action is possible, thus a delay of approximately \SI{40}{\us} is necessary
+after each action. Refer to the datasheet for more details.
 
 \section{Block diagram}
 
