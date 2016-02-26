@@ -292,5 +292,52 @@ to any port that requests one.
 
 \section{Block diagram}
 
+\section{Choice of components}
+\subsection{MCU}
+\subsubsection{CPU}
+The gamepad protocol requires being ablo to flip a pin each \si{\us} at
+most. With the lowest speed available (\SI{40}{\MHz}), that leaves us 40
+instructions to decide what to do, which is enough. Console requests happen at
+most each \SI{16}{\ms} and the whole exchange takes at most \SI{200}{\us}. We
+then have $\SI{16}{\ms} - \SI{200}{\us} = \SI{15.8}{\ms}$ to do all the rest.
+
+Writing to the screen (takes max \SI{6.4}{\ms} overall to fill the whole
+screen) can largely be done in parallel to other tasks as it is mostly waiting
+and it doesn't even need to be done every frame. All the remaining time can be
+used to buffer data from the SD, and even that can probably offloaded in most
+part to a DMA channel. So our CPU budget is plenty.
+
+\subsubsection{Memory}
+
+The smallest flash memory available is \SI{16}{\kibi\byte}. However if we look
+at Microchip document AN1045, which is about using a library to access FAT32
+filesystems, the Table 10 page 11 shows that their lib needs about
+\SI{27}{\kibi\byte} of program memory. Moreover this table assumes a 16 bits CPU
+while ours is 32 bits and probably has a more space-consuming instruction
+set. While \SI{32}{\kibi\byte} may be sufficient (the PIC32 supports the MIPS16
+reduced size instruction set), we choose to require \SI{64}{\kibi\byte} of
+program memory to be on the safe side.
+
+As a bonus, the \SI{64}{\kibi\byte} chips have more RAM, that can be used to
+buffer more input frames and thus be less sensible to a low quality SD card with
+long response times.
+
+\subsubsection{Final choice}
+
+To cater to our limited soldering capabilities, we are limited to a SDIP or
+SOIC package.
+
+The cheapest model meeting our requirements sold by our supplier is the
+PIC32MX130F064B-I/SP. It is also available in a SOIC package but is more
+expensive.
+
+\subsection{Display}
+We need to display the name of the game, which may be long and contain Japanese
+characters, on one line, hence the longer the line the better. We need another
+line to display the eventual error codes and progression of the TAS.
+
+The display must also support a 3.3V electric supply and a backlight to indicate
+the power-on status of the TASBot.
+
 \section{Preliminary Bill of Materials}
 \end{document}
