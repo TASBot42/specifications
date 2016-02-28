@@ -297,6 +297,10 @@ The commands (CMD) are given from the master to the slave with five or six bytes
 
 Depending on the command different types of response will come. The most common one is the R1 response which is a byte with its first bit to 0 and the following are flags set to 1 only if the related error happened (0x00 means succesful then). R3 and R7 response are made of an R1 plus 32 trailing bit data. Some commands may have the R1b response, which is a R1 followed by a busy flag. In that case MISO will be set to 0 and the microcontroller must wait until the SD card puts it back to 1 before giving further commands.
 
+In a transaction with data transfer, one or more Data Blocks will be sent after command response. Each Data Block (which can be long up to 2048 bytes) is always preceded by a byte called Data Token (stating to which CMD it is responding) and it is always followed by a 2-bytes CRC, the sum of the three is called Data Packet. When a multiple block write transaction is finished a single byte called Stop Tran token is sent.
+
+After a power-on or a reset SD cards enter their native operating mode, hence an initialization procedure must be launched each time one of this events happen in order tu put the card in SPI mode (otherwise only few CMD are accepted). First of all it must be checked that the system supply voltage is in the right working range (3.3 volts) otherwise the card must be rejected. Then, to actually start the initialization process, a CMD1 must be sent to the card and then the R1 response must be checked: if it corresponds to 0x01 then another CMD1 must be sent (and R1 response must be checked again and so on) while if it is equal to 0x00 the card is initialized properly.
+
 \subsection{LCD display}
 The display we will use, as the majority of LCD character mode displays, include
 a Hitachi HD44780 compatible driver chip. This chip is talked to over a
