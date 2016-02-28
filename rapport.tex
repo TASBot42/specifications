@@ -287,6 +287,15 @@ not tagged with any port number or timestamp : they are simply served, in order,
 to any port that requests one.
 
 \subsection{SD card}
+The microcontroller will be attached to the SD card via the SPI (Serial Peripheral Interface) mode 0.
+
+The structure of SPI is made of four signal lines: SCLK (Serial Clock), MISO (Master-In Slave-Out), MOSI (Master-Out Slave-In) and SS (Slave Select). Contents of both 8-bit shift register are exchanged with the shift clock driven by the master, SS will not be used since only one SD card will be used. In SPI mode, the data is transferred in byte oriented serial communication and it is based on SCLK timing.
+
+The SPI mode 0 is one of the four possible timing mode allowed by the SPI and it is the one used by SD cards. This mode has the clock polarity (CPOL) set to zero, meaning that the base value (idle state) of the clock is 0, and the clock phase (CPHA) is set to zero as well, which tells to capture data on the clock's rising edge and to output data on a falling edge.
+
+The commands (CMD) are given from the master to the slave with five or six bytes on the MOSI and then the master must continue reading on the MISO until a valid response is detected. The commands are always made up with the first byte stating the type (index) of command and the four following bytes giving all the arguments needed, there can be a final byte called CRC (cyclic redunndancy checking) which works as a check sum but this feature is optional in SPI mode. It must be remembered that the index byte always has the most left bit set to 0 and the following to 1, thus reducing the possible commands to 64 (from CMD0 to CMD63).
+
+Depending on the command different types of response will come. The most common one is the R1 response which is a byte with its first bit to 0 and the following are flags set to 1 only if the related error happened (0x00 means succesful then). R3 and R7 response are made of an R1 plus 32 trailing bit data. Some commands may have the R1b response, which is a R1 followed by a busy flag. In that case MISO will be set to 0 and the microcontroller must wait until the SD card puts it back to 1 before giving further commands.
 
 \subsection{LCD display}
 The display we will use, as the majority of LCD character mode displays, include
@@ -395,13 +404,13 @@ the power-on status of the TASBot.
   \hline
   PIC32 & 300 \\
   \hline
-  SD card & \\
+  SD card & 100\\
   \hline
   Display & 0.2 \\
   \hline
   Display backlight & 50 \\
   \hline
-  Total & \\
+  Total & 450.2\\
   \hline
 \end{tabular}
 
