@@ -134,6 +134,7 @@ gamepad instead.
   restart the Nintendo 64 system
 \item TAS didn't finish the game: the game cartridge may not be at its correct
 initial state or the TAS may be invalid.
+\item You can't find your TAS movie: make sure the file has the .m64 extension
 \end{itemize}
 
 \subsubsection{Passthrough mode}
@@ -145,10 +146,16 @@ Passthrough mode
 
 \subsubsection{Error Code}
 \begin{itemize}
-\item Error 000: insert a SD card in the adapted slot
-\item Error 001: error while parsing the TAS file, make sure that the file
-system of your SDCARD is fat32 and check your TAS file type (it must be .m64)
-\item Error 002: SD card is empty, load at least one file in your SD card
+\item \texttt{NO\ SD}: insert a SD card in the adapted slot
+\item \texttt{FS\ ERR}: error while parsing the file system, make sure your SD card has a
+  partition table and is properly formatted
+\item \texttt{NO\ FILE}: SD card is empty, load at least one file in your SD card
+\item \texttt{PARSE\ ERR}: error while parsing the TAS movie file, make sure your .m64
+  file is actually a Mupen64-rr movie file and is not corrupted
+\item \texttt{NOEPAD}: Not enough output cables are plugged to the gamepad ports of the
+  Nintendo 64 for this movie file.
+\item \texttt{UNSUPP}: An unsupported feature of the Mupen64-rr movie format is present
+  in the file you are playing, the movie cannot played anymore.
 \end{itemize}
 
 \section{Protocols}
