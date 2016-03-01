@@ -66,47 +66,22 @@ specificity.
 \end{itemize}
 
 \section{User manual}
-\subsection{Foreword}
-
-\subsection{Package content}
-
-\subsection{Installation}
-The TASBot64 is made up by two not separable parts: the PCB and its wire on the
-free-end of which is a male controller adaptor that enables the connection
-between the TASBot64 and the Nintendo 64 system.
-
+\subsection{Front panel}
 The PCB itself presents on its control panel:
 \begin{itemize}
-\item Two multiple-selector buttons:
-\begin{itemize}
-\item The "Mode" button which allows you to chose between "PASSTHROUGH" mode and
-"TAS" mode
-\item The "Game selector" button which lets you toggle between the (up to) four
-different files you have loaded on your SD card
-\end{itemize}
-
-\item A LCD screen which displays:
-\begin{itemize}
-\item The name of the file you are currently playing (if in "TAS" mode)
-\item The name of the files while changing the game selector position
-\item Error messages (when occurs)
-\end{itemize}
-
-\item Two LEDs:
-\begin{itemize}
-\item A "Power" LED that lights on if the TASBot is correctly connected to the
-Nintendo 64 system and if it is on.
-\item A "Data" LED that flashes when data is sent to the console.
-\end{itemize}
-\end{itemize}
-
-You can also find two ports:
-\begin{itemize}
+\item A display. The backlight indicates is the TASBot64 is on. On the first line
+  is shown the name of the TAS movie being played. On the second line is shown
+  the progression of the TAS and any eventual error code
+\item Two buttons, up and down, to cycle between TAS movies
+\item A "Mode" switch which allows you to chose between "PASSTHROUGH" mode and
+  "TAS" mode
 \item The SD port where you can insert your SD card (non included).
-\item The controller port that enables you to plug a controller in case you want
-to play the game instead of launching a TAS (remember to switch the "Mode"
-button to the "PASSTHROUGH" mode in that case).
 \end{itemize}
+
+\subsection{Connection}
+The TASBot64 has got one gamepad input port and four gamepad output cables. Plug
+a gamepad in the input port if you want to use the passthrough mode. Plug one to
+four output cable into the Nintendo 64 depending on the game played.
 
 \subsection{Reading a TAS}
 \subsubsection{Getting files (Mupen64 movies)}
@@ -135,24 +110,28 @@ tasvideos.org) before starting a run.
 \subsubsection{Running the TAS}
 \begin{itemize}
 \item Put the appropriate game cartridge into your Nintendo 64 system
-\item Connect your TASBot64 to the first controller port of your Nintendo 64
+\item Connect your TASBot64 to the relevant controller port of your Nintendo 64
 system
 \item Switch the mode switch to TAS position
-\item Switch the game selector switch to the appropriate position, regarding to
-the partition in which you uploaded the .m64 file to. The name of the selected
-game will briefly appear on the LCD screen if the Nintendo 64 system is on.
-\item Turn your Nintendo 64 system on. If it is already on, then turn it off and
-on again and enjoy the watch
+\item If the movie name on the display is the want you want to play, you have
+  nothing to do but watch the TAS playing.
+\item If the movie name isn't the one you want to play, choose another one with
+  the up and down buttons. The TAS will stop playing until you reset the
+  console. The TASBot64 will remember which movie you had selected.
 \end{itemize}
 
 \subsection{Passthrough mode}
+When the mode switch is in passthrough mode, you can simply play your Nintendo
+64 game, without needing to unplug the TASBot64 from the console and plug your
+gamepad instead.
 
 \subsection{Errors and how to fix them}
 \subsubsection{TAS mode}
 \begin{itemize}
 \item TAS doesn't start: check if the mode switch is on TAS mode
-\item TAS seems desynchronized: check if the game selector switch is at the
-correct position, then restart the Nintendo 64 system
+\item TAS seems desynchronized: check if the TAS movie name on the screen is the
+  right one, if not then select the right one using the up and down buttons and
+  restart the Nintendo 64 system
 \item TAS didn't finish the game: the game cartridge may not be at its correct
 initial state or the TAS may be invalid.
 \end{itemize}
